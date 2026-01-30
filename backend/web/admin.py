@@ -1,3 +1,9 @@
 from django.contrib import admin
+from web.models.user import UserProfile
+
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    raw_id_fields = ('user',)           #逗号不要删，否则就不是列表
+
 
 # Register your models here.
