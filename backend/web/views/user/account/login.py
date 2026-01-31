@@ -41,5 +41,5 @@ class LoginView(APIView):
             })
         except:
             return Response({
-                'res': '系统异常，请稍后重试'
+                'result': '系统异常，请稍后重试'
             })
