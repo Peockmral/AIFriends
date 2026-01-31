@@ -12,7 +12,7 @@ class RefreshTokenView(APIView):
                     'result': 'refresh token 不存在'
                 }, status=401)
             refresh = RefreshToken(refresh_token)       # 如果refresh token过期了，会报异常
-            if settings.SIMPLE_JWT['ROTATE_REFRESH_TOKEN']:
+            if settings.SIMPLE_JWT['ROTATE_REFRESH_TOKENS']:
                 refresh.set_jti()
                 response = Response({
                     'result': 'success',
@@ -32,6 +32,7 @@ class RefreshTokenView(APIView):
                 'access': str(refresh.access_token),
             })
         except:
+            print("refresh_token 过期了:   " + refresh_token)
             return Response({
                 'result': "refresh_token 过期了"
             }, status=401)

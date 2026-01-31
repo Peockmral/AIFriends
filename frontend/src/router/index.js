@@ -7,6 +7,7 @@ import RegisterIndex from "@/views/user/account/RegisterIndex.vue";
 import SpaceIndex from "@/views/user/space/SpaceIndex.vue";
 import ProfileIndex from "@/views/profile/ProfileIndex.vue";
 import NotFoundIndex from "@/views/error/NotFoundIndex.vue";
+import {useUserStore} from "@/stores/user.js";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,48 +16,85 @@ const router = createRouter({
       path: "/",
       component: HomepageIndex,
       name: "homepage-index",
+      meta: {
+        needLogin: false,
+      },
     },
     {
       path: "/friends/",
       component: FriendsIndex,
       name: "friends-index",
+      meta: {
+        needLogin: true,
+      },
     },
     {
       path: "/create/",
       component: CreateIndex,
       name: "create-index",
+      meta: {
+        needLogin: true,
+      },
     },
     {
       path: "/user/account/login/",
       component: LoginIndex,
       name: "user-account-login-index",
+      meta: {
+        needLogin: false,
+      },
     },
     {
       path: "/user/account/register/",
       component: RegisterIndex,
       name: "user-account-register-index",
+      meta: {
+        needLogin: false,
+      },
     },
     {
       path: "/user/space/:user_id/",
       component: SpaceIndex,
       name: "user-space-index",
+      meta: {
+        needLogin: true,
+      },
     },
     {
       path: "/profile/",
       component: ProfileIndex,
       name: "profile-index",
+      meta: {
+        needLogin: true,
+      },
     },
     {
       path: "/notFound",
       component: NotFoundIndex,
       name: "notFound-index",
+      meta: {
+        needLogin: false,
+      },
     },
     {
       path: "/:pathMatch(.*)*",
       component: NotFoundIndex,
       name: "notFound-index",
+      meta: {
+        needLogin: false,
+      },
     },
   ],
+})
+
+router.beforeEach((to, from) => {
+  const user = useUserStore()
+  if (to.meta.needLogin && user.hasPulledUserInfo && !user.isLogin()) {
+    return {
+      name: 'user-account-login-index',
+    }
+  }
+  return true
 })
 
 export default router

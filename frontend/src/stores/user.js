@@ -7,6 +7,7 @@ export const useUserStore = defineStore('user', () => {
     const photo = ref('')
     const profile = ref('')
     const accessToken = ref('')
+    const hasPulledUserInfo = ref(false)
 
     function isLogin() {
         return !!accessToken.value              // 1次！会将空字符串、空列表判断为 false，再次！将 false转换为 true; 必须带 value，否则永不会为空，且不报错，难以调试
@@ -31,6 +32,10 @@ export const useUserStore = defineStore('user', () => {
         accessToken.value=''
     }
 
+    function  setHasPulledUserInfo(newStatus) {
+        hasPulledUserInfo.value = newStatus
+    }
+
     return {
         id,
         username,
@@ -41,6 +46,8 @@ export const useUserStore = defineStore('user', () => {
         setAccessToken,
         setUserInfo,
         logout,
+        hasPulledUserInfo,
+        setHasPulledUserInfo,
     }
 
 })
