@@ -8,7 +8,7 @@ from web.models.user import UserProfile
 from web.views.utils.photo import remove_old_photo
 
 
-class UpdataProfileView(APIView):
+class UpdateProfileView(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request):
         try:
