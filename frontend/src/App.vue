@@ -18,7 +18,6 @@ onMounted(async () => {
       user.setUserInfo(data)
     } else console.log(data.result)
   } catch (err) {
-    console.log(err)
   } finally {
     user.setHasPulledUserInfo(true)
 
