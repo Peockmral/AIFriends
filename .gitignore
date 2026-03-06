@@ -50,4 +50,5 @@ Thumbs.db
 htmlcov/
 
 ## 数据库
-backend/web/documents/
+backend/web/documents/data.txt
+backend/web/documents/lancedb_storage
