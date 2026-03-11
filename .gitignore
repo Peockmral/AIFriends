@@ -52,3 +52,6 @@ htmlcov/
 ## 数据库
 backend/web/documents/data.txt
 backend/web/documents/lancedb_storage
+
+
+frontend/public/vad/
