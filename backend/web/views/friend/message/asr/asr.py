@@ -25,7 +25,7 @@ class ASRView(APIView):
         })
 
     async def asr_sender(self, pcm_data, ws, task_id):
-        chunk = 3200
+        chunk = 3200    # 每次发送100ms的音频
         for i in range(0, len(pcm_data), chunk):
             await ws.send(pcm_data[i: i+chunk])
             await asyncio.sleep(0.01)

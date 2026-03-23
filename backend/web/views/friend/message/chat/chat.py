@@ -113,7 +113,7 @@ class MessageChatView(APIView):
     async def tts_receiver(self, mq, ws):
         async for msg in ws:
             if isinstance(msg, bytes):
-                audio = base64.b64encode(msg).decode('utf-8')
+                audio = base64.b64encode(msg).decode('utf-8')       # 给前端发消息用的SSE协议，是基于文本而非二进制的，因此需要encode
                 mq.put_nowait({'audio': audio})
             else:
                 data = json.loads(msg)
@@ -182,7 +182,6 @@ class MessageChatView(APIView):
                 full_output += msg['content']
                 yield f'data: {json.dumps({'content': msg['content']}, ensure_ascii=False)}\n\n'
             if msg.get('audio', None):
-                full_output += msg['audio']
                 yield f'data: {json.dumps({'audio': msg['audio']}, ensure_ascii=False)}\n\n'
             if msg.get('usage', None):
                 full_usage = msg['usage']

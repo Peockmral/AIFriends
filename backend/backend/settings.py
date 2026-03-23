@@ -15,7 +15,7 @@ SECRET_KEY = "django-insecure-uwjxeu@xpk458apgjaq$b@+twv39y@emeqkd^7542)6&!5yu5x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'AIFriends.prockmral.fun']
 
 
 # Application definition
@@ -110,11 +110,17 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-STATICFILES_DIRS = [  # 开发阶段使用，生产阶段需要注释掉
-    BASE_DIR / 'static',
-]
+if not DEBUG:
+    STATIC_ROOT = BASE_DIR / "static"
+else:
+    STATICFILES_DIRS = [  # 开发阶段使用，生产阶段需要注释掉
+        BASE_DIR / 'static',
+    ]
 
-MEDIA_URL = 'http://127.0.0.1:8000/media/'
+if DEBUG:
+    MEDIA_URL = 'http://127.0.0.1:8000/media/'
+else:
+    MEDIA_URL = 'https://AIFriends.prockmral.fun/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # 使用JWT认证

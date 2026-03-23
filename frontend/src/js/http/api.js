@@ -10,17 +10,18 @@
 
 import axios from "axios"
 import {useUserStore} from "@/stores/user.js";
+import CONFIG_API from "@/js/config/config.js";
 
-const BASE_URL = 'http://127.0.0.1:8000'
+const BASE_URL = CONFIG_API.HTTP_URL
 
 const api = axios.create({
     baseURL: BASE_URL,
     withCredentials: true,
 })
 
-api.interceptors.request.use(config => {
+api.interceptors.request.use(config => {        // 请求拦截器，在每个请求头里添加`access token`
     const user = useUserStore()
-    if (user.accessToken) {
+    if (user.accessToken) {     // 所有请求都会带上access token，后端根据需要取出
         config.headers.Authorization = `Bearer ${user.accessToken}`
     }
     return config
@@ -43,7 +44,7 @@ function onRefreshFailed(err) {
     refreshSubscribers = []
 }
 
-api.interceptors.response.use(
+api.interceptors.response.use(          // 响应拦截器，处理401错误
     response => response,
     async error => {
         const user = useUserStore()

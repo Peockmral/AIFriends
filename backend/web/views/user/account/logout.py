@@ -9,6 +9,6 @@ class LogoutView(APIView):
         response = Response({
             'result': "success"
         })
-        response.delete_cookie('refresh')
+        response.delete_cookie('refresh_token')
         return response
 
