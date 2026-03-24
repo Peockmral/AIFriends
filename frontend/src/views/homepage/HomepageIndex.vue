@@ -65,6 +65,7 @@ onMounted(async () => {
       {root: null, rootMargin: '2px', threshold: 0}
   )
 
+  await nextTick()
   observer.observe(sentinelRef.value)
 })
 
